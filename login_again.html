@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>loginPage</title>
+  </head>
+  <body>
+    <div class="container">
+      <form class="" id="login">
+        <div class="form-group">
+          <input type="text" name="username" id="username"   value="" placeholder="username">
+          <input type="password" name="password" value="" id="password" placeholder="password">
+          <button name="submit" onclick="Create()">Create Account</button>
+
+        </div>
+      </form>
+
+    </div>
+    <div class="container2">
+      <div class="form-group2">
+        <input type="text" name="username_login" id="username_login" value="" placeholder="username">
+        <input type="password" name="password_login" id="password_login" value="" placeholder="password">
+        <button type="submit" name="submit" onclick="login()">login</button>
+
+      </div>
+
+    </div>
+    <script type="text/javascript">
+
+    var form = document.getElementById("login");
+    function handleForm(event) { event.preventDefault(); }
+    form.addEventListener('submit', handleForm);
+      function Create(){
+        var users = JSON.parse(localStorage.getItem('Users'));
+        if(users == null){
+          users = []
+        }
+        username=document.getElementById('username').value;
+        password=document.getElementById('password').value;
+        user={"User":username, "Password":password}
+        users.push(user);
+        localStorage.setItem('Users', JSON.stringify(users));
+      }
+      function login(){
+        var invalid = true;
+        username=document.getElementById('username_login').value;
+        password=document.getElementById('password_login').value;
+        users = JSON.parse(localStorage.getItem('Users'))
+        for (var i = 0; i < users.length; i++) {
+          if (users[i]["User"] == username && users[i]["Password"] == password){
+            alert('Welcome! ' + username);
+            sessionStorage.setItem('Current User', JSON.stringify(users[i]));
+            invalid = false;
+            window.location.href = "index.html";
+          }
+        }
+        if(invalid){
+          alert('Invalid username or password');
+        }
+}
+
+    </script>
+
+  </body>
+</html>

@@ -2,9 +2,22 @@
     <head>
         <title>Snake Game</title>
         <style>
+            body{
+              background:green!important;
+            }
             canvas{
-                display: block;
-                margin: 0 auto;
+                margin: 15 0;
+            }
+            h2{
+              color:white!important;
+            }
+            .difficulty{
+              margin:10 0;
+              padding:10;
+            }
+            #bg{
+              background:darkgoldenrod;
+              margin: 0 auto;
             }
         </style>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -12,14 +25,57 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </head>
-    <canvas id="snake" width="608" height="608"></canvas>
+    <body>
+    <div class="h-100 d-flex justify-content-center align-items-center">
+      <div class="container-fluid" id="bg">
+        <div class="row" style="text-align:center;">
+          <a href="login_again.html" style="color:white;font-size:20;display:inherit;">Player:&nbsp;<p id="currentUser"></p></a>
+          <h2 style="margin:0 auto;display:inherit;">Snake Game - &nbsp;<p id="GameModeText">Easy</p></h2>
+          <a href="login_again.html" style="color:white;font-size:20;">Sign Out</a>
+        </div>
+        <div class="row">
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <div>
+              <h2> Difficulties:</h2>
+              <div class="row">
+                <button id="easy-btn" class="col-md-12 difficulty" onclick="gameMode(0)">Easy</button>
+              </div>
+              <div class="row">
+                <button id="medium-btn" class="col-md-12 difficulty" onclick="gameMode(1)">Medium</button>
+              </div>
+              <div class="row">
+                <button id="hard-btn" class="col-md-12 difficulty" onclick="gameMode(2)">Hard</button>
+              </div>
+            </div>
+          </div>
+        <canvas id="snake" width="608" height="608" class="col-md-4"></canvas>
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+          <div class="">
+            <h2> Highest Score</h2>
+            <div class="row">
+              <h3 class="col-md-6"> Name: </h3>
+              <h3 id="highest_scorer" class="col-md-6"></h3>
+            </div>
+            <div class="row">
+              <h3 class="col-md-6"> Score: </h3>
+              <h3 id="highest_score" class="col-md-6"></h3>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <button type="button" name="button" onclick="playGame()">Start Game</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="background-color:darkgreen;">
-          <h5 class="modal-title" id="exampleModalLabel" style="color:white;">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title" id="exampleModalLabel" style="color:white;">Final Score</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -27,11 +83,25 @@
           <strong>Your Score:</strong><p id="score">Good Job</p>
         </div>
         <div class="modal-footer">
+
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Mode
+  </button>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="index.html">Easy</a>
+    <a class="dropdown-item" href="index_med.html">Medium</a>
+    <a class="dropdown-item" href="index_hardest.html">Hard</a>
+  </div>
+</div> -->
           <button type="button" class="btn btn-primary" onclick="window.location.reload()">Play again</button>
         </div>
       </div>
     </div>
   </div>
+
+</body>
     <script src="snake.js"></script>
 </html>

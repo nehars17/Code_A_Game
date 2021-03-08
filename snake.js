@@ -57,7 +57,6 @@ let score = 0;
 
 let d;
 
-document.addEventListener("keydown",direction);
 
 function direction(event){
     let key = event.keyCode;
@@ -159,11 +158,18 @@ function draw(){
 
     // game over
 
+
     if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
         clearInterval(game);
         dead.play();
         $('#exampleModal').modal('show')
         document.getElementById('score').innerHTML = score;
+        if(score > highest_score["Score"]|| highest_score["Score"]==null){
+          highest_score["User"] = user["User"]
+          highest_score["Score"] = score
+          localStorage.setItem("Highest_Score", JSON.stringify(highest_score));
+        }
+
     }
 
     snake.unshift(newHead);
@@ -173,9 +179,63 @@ function draw(){
     ctx.fillText(score,2*box,1.6*box);
 }
 
+var user = JSON.parse(sessionStorage.getItem('Current User'));
+var highest_score=localStorage.getItem('Highest_Score');
+
+if(highest_score==null){
+  highest_score={
+    "User":null,
+    "Score":null
+  };
+}
+else{
+  highest_score = JSON.parse(highest_score);
+}
+
+document.getElementById('currentUser').innerText = user["User"];
+document.getElementById('highest_scorer').innerText = highest_score["User"];
+document.getElementById('highest_score').innerText = highest_score["Score"];
+
+
+
+var Interval;
+var game
 
 // call draw function every 100 ms
 // call draw function different timing for speed
-let game = setInterval(draw,250);
+function gameMode(mode){
+  switch (mode) {
+    // Easy
+    case 0:
+      Interval = 250;
+      document.getElementById('GameModeText').innerText = "Easy";
+      break;
+    // Medium
+    case 1:
+      Interval = 150;
+      document.getElementById('GameModeText').innerText = "Medium";
+      break;
+    // Hard
+    case 2:
+      Interval = 100;
+      document.getElementById('GameModeText').innerText = "Hard";
+      break;
+  }
+  console.log("Gamemode changed")
+}
+
+function playGame(){
+  document.getElementById('easy-btn').disabled = true;
+  document.getElementById('medium-btn').disabled = true;
+  document.getElementById('hard-btn').disabled = true;
+  if(Interval==null){
+    Interval = 250;
+  }
+  game = setInterval(draw, Interval);
+  document.addEventListener("keydown",direction);
+}
+
+
+
 //let game = setInterval(draw,150);
 //let game = setInterval(draw,100);
