@@ -1,2 +1,3 @@
 # Code_A_Game
-coding for DSC project
+Developer School Club (DSC) Orientation Project 
+Snake Game developed using JavaScript, HTML along with CSS Styling 
